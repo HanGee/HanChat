@@ -23,8 +23,14 @@ var ChatServer = require('./chat.js');
 var models = require('./models/models.js');
 
 var requireLogin = function(req, res, next) {
-    if (req.path === '/login' || req.isAuthenticated()) {
+    if (req.path === '/login' || 
+        req.path === '/ajax/register' ||
+        req.path === '/ajax/login' ||
+        req.isAuthenticated()
+      ) {
+
         next();
+
     } else {
         res.redirect('/login');
     }
@@ -130,7 +136,7 @@ var Server = function(config) {
     // ensure login in all routes
     //
     self.app.all('*', requireLogin, function(req, res, next) {
-      next();
+        next();
     });
 
     //
@@ -332,7 +338,7 @@ var Server = function(config) {
         //
         // Account Settings
         //
-        self.app.post('/account', requireLogin, function(req, res) {
+        self.app.post('/account', function(req, res) {
             var form = req.body;
             var profile = models.user.findOne({
                 _id: req.user._id
@@ -379,7 +385,7 @@ var Server = function(config) {
         //
         // File uploadin'
         // TODO: Some proper error handling
-        self.app.post('/upload-file', requireLogin, function(req, res) {
+        self.app.post('/upload-file', function(req, res) {
             var moveUpload = function(path, newPath, callback) {
                 fs.readFile(path, function(err, data) {
                     fs.writeFile(newPath, data, function(err) {
@@ -496,7 +502,7 @@ var Server = function(config) {
     //
     // View files
     //
-    self.app.get('/files/:id/:name', requireLogin, function(req, res) {
+    self.app.get('/files/:id/:name', function(req, res) {
         models.file.findById(req.params.id, function(err, file) {
             if (err) {
                 // Error
@@ -511,7 +517,7 @@ var Server = function(config) {
     //
     // Transcripts
     //
-    self.app.get('/transcripts/:room', requireLogin, function(req, res) {
+    self.app.get('/transcripts/:room', function(req, res) {
         var fromDate = moment().subtract('days', 1).format("DDMMYYYY");
         var toDate = moment().format("DDMMYYYY");
 
@@ -519,7 +525,7 @@ var Server = function(config) {
         res.end();
     });
 
-    self.app.get('/transcripts/:room/from/:fromDate/to/:toDate', requireLogin, function(req, res) {
+    self.app.get('/transcripts/:room/from/:fromDate/to/:toDate', function(req, res) {
         //dates in url are in DDMMYYY format
         var dateParamPattern = /[0-9]{6}/;
 
