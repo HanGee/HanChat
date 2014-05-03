@@ -4,7 +4,6 @@ A self-hosted chat app for small teams.
 
 fork from [https://github.com/sdelements/lets-chat](https://github.com/sdelements/lets-chat)
 
-![Screenshot](http://i.imgur.com/djnd0Uk.png)
 
 ## Features and Stuff
 
@@ -44,4 +43,19 @@ node app.js
 ```
 
 Party time: [http://localhost:5000](http://localhost:5000)
+
+
+## Deployment
+
+make sure you have installed ```forever``` and ```mongodb```:
+
+```
+make deploy
+```
+
+Restart:
+
+```
+make restart
+```
 
