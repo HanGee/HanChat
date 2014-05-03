@@ -1,6 +1,3 @@
-//
-// Let's Chat Frontend
-//
 
 var _ = require('underscore');
 var fs = require('fs');
@@ -25,12 +22,11 @@ var ChatServer = require('./chat.js');
 // Models
 var models = require('./models/models.js');
 
-// TODO: We should require login on all routes
 var requireLogin = function(req, res, next) {
-    if (req.isAuthenticated()) {
+    if (req.path === '/login' || req.isAuthenticated()) {
         next();
     } else {
-        res.redirect('/login?next=' + req.path);
+        res.redirect('/login');
     }
 };
 
@@ -131,9 +127,16 @@ var Server = function(config) {
     });
 
     //
+    // ensure login in all routes
+    //
+    self.app.all('*', requireLogin, function(req, res, next) {
+      next();
+    });
+
+    //
     // Chat
     //
-    self.app.get('/', requireLogin, function(req, res) {
+    self.app.get('/', function(req, res) {
         var user = req.user;
         var vars = {
             media_url: self.config.media_url,

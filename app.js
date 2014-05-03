@@ -1,6 +1,3 @@
-//
-// Letschatbro
-//
 
 var config = require('./settings.js');
 var Server = require('./app/server.js');

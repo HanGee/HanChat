@@ -37,12 +37,6 @@ Install node dependencies
 npm install
 ```
 
-Create a settings file (make sure to edit if you need to). 
-
-```
-cp settings.js.sample settings.js
-```
-
 Run the app
 
 ```
