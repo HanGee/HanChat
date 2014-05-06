@@ -23,23 +23,10 @@ fork from [https://github.com/sdelements/lets-chat](https://github.com/sdelement
 
 Install [nodejs](https://github.com/joyent/node/wiki/Installation) and [mongo](http://www.mongodb.org/display/DOCS/Quickstart)
 
-Clone le repo
+One-liner
 
 ```
-git clone https://github.com/sdelements/lets-chat.git
-cd lets-chat
-```
-
-Install node dependencies
-
-```
-npm install
-```
-
-Run the app
-
-```
-node app.js
+git clone https://github.com/HanGee/HanChat && cd HanChat && npm i
 ```
 
 Party time: [http://localhost:5000](http://localhost:5000)
